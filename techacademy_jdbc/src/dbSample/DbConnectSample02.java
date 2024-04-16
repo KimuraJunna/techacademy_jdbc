@@ -43,6 +43,10 @@ public class DbConnectSample02 {
                 System.out.println(name);
                 System.out.println(population);
             }
+         // 6-1. データの更新を行う
+            sql = "update country set Population = 105000 where Code = 'ABW'";
+            int count = stmt.executeUpdate(sql);
+            System.out.println(count);
             
         } catch (ClassNotFoundException e) {
             System.err.println("JDBCドライバーのロードに失敗しました。");

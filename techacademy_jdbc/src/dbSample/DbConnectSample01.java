@@ -2,12 +2,12 @@ package dbSample;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.security.sasl.SaslException;
 
-import com.mysql.cj.protocol.Resultset;
-import com.mysql.cj.xdevapi.Statement;
 
 public class DbConnectSample01 {
 
@@ -15,7 +15,7 @@ public class DbConnectSample01 {
         
         Connection con = null;
         Statement stmt = null;
-        Resultset rs = null;
+        ResultSet rs = null;
         
         try {
         // 1. ドライバーのクラスをJava上で読み込む
@@ -23,7 +23,7 @@ public class DbConnectSample01 {
         
 
         // 2. DBと接続する
-            Connection con = DriverManager.getConnection (
+            con = DriverManager.getConnection (
                     "jdbc:mysql://localhost/world?useSSL=false&allowPublicKeyRetrieval=true",
                     "root",
                     "SHINSOTUno-jumko-1515"
@@ -37,6 +37,12 @@ public class DbConnectSample01 {
             rs = stmt.executeQuery(sql);
 
         // 6. 結果を表示する
+            while( rs.next()) {
+                String name = rs.getString("name");
+                int population = rs.getInt("Population");
+                System.out.println(name);
+                System.out.println(population);
+            }
             
         } catch (ClassNotFoundException e) {
             System.err.println("JDBCドライバーのロードに失敗しました。");
